@@ -23,6 +23,7 @@ class ProductController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'create', 'view', 'index', 'update',
                     'delete' => ['POST'],
                 ],
             ],
