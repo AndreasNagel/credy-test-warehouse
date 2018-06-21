@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\User;
+use backend\models\CreateUserForm;
 use app\models\searchUser;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,10 +65,13 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new CreateUserForm();
+        
+        $newUser = new User();
+        if ($model->load(Yii::$app->request->post())){
+            if($newUser = $model->addNew()){
+                return $this->redirect(['view', 'id' => $newUser->id]);
+            }
         }
 
         return $this->render('create', [

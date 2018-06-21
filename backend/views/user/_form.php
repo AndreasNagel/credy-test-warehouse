@@ -4,23 +4,23 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\User */
+/* @var $model common\models\CreateUserForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'email')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+        <?= $form->field($model, 'password')->passwordInput() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
+        <div class="form-group">
+            <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+        </div>
 
     <?php ActiveForm::end(); ?>
 
