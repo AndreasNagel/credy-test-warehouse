@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
+        <?= $form->field($model, 'admin')->checkbox() ?>
+
         <div class="form-group">
             <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
         </div>

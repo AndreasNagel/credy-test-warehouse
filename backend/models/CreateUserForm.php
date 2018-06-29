@@ -12,6 +12,7 @@ class CreateUserForm extends Model
     public $username;
     public $email;
     public $password;
+    public $admin;
 
 
     /**
@@ -33,6 +34,8 @@ class CreateUserForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            ['admin', 'boolean']
         ];
     }
 
@@ -53,7 +56,21 @@ class CreateUserForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+
+        if ($user->save()){
+            if($this->admin){
+                $auth = \Yii::$app->authManager;
+                $authorRole = $auth->getRole('author');
+                $auth->assign($authorRole, $user->getId());
+            } 
+            else{
+                $auth = \Yii::$app->authManager;
+                $authorRole = $auth->getRole('author');
+                $auth->assign($authorRole, $user->getId());
+            }
+
+            return $user;
+        }
+        else return null;
     }
 }
